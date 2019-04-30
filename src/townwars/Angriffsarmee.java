@@ -80,7 +80,7 @@ public class Angriffsarmee {
 		}
 
 		// checkt ob armee bereits in der nähe vom zielstadt ist
-		if (deltax < 10 && deltay < 10&&deltax >-10&& deltay >-10) { // noch checken ob zielstadt währenddessen verbündet wurde
+		if (deltax < 10 && deltay < 10&&deltax >-10&& deltay >-10) { // noch checken ob zielstadt verbündet 
 			for (int x = 0; x < 3; x++) {
 				if (soldaten.isEmpty()==false&&this.armyfaction!=targetTown.townfaction) {
 					this.soldaten.remove(0);
@@ -98,7 +98,7 @@ public class Angriffsarmee {
 //				
 //				targetTown.setSoldaten(targetTown.getFeindlicheSoldaten());
 //				targetTown.setnahstefeindlicheStadt();
-//
+//                                         
 //			}
 
 		} else {

@@ -10,23 +10,8 @@ public class Town {
 	ArrayList<Soldat> soldaten = new ArrayList<Soldat>();
 	ArrayList<Soldat> feindlicheSoldaten = new ArrayList<Soldat>();
 
-	public ArrayList<Soldat> getFeindlicheSoldaten() {
-		return feindlicheSoldaten;
-	}
 
-	public void setFeindlicheSoldaten(ArrayList<Soldat> feindlicheSoldaten) {
-		this.feindlicheSoldaten = feindlicheSoldaten;
-	}
 
-	public ArrayList<Soldat> getSoldaten() {
-		return soldaten;
-	}
-
-	public void setSoldaten(ArrayList<Soldat> soldaten) {
-		this.soldaten = soldaten;
-	}
-
-	int ressourcen;
 	Buildings[] buildings;
 	Governor governor;
 	Point stadtposition;
@@ -36,7 +21,8 @@ public class Town {
 	Faction townfaction;
 	Faction factionlastattacked;
 	int defensiveAdvantage = 0;
-	int targetedby=0;
+	int targetedby = 0;
+	Towneconomy towneco;
 
 	public Faction getFactionlastattacked() {
 		return factionlastattacked;
@@ -73,6 +59,7 @@ public class Town {
 	public Town(ArrayList<Town> inputTown, Faction inputfaction) {
 
 		governor = new Governor();
+		towneco = new Towneconomy(this);
 		townfaction = inputfaction;
 		otherTowns = inputTown;
 		stadtposition = new Point();
@@ -91,18 +78,29 @@ public class Town {
 
 	public void update() {
 
-		// Mit einschränkungen später
-
+	
+		this.stadtKampf();
 		if (soldaten.isEmpty() && this.feindlicheSoldaten.size() > 0) {
 			stadtWurdeErobert();
 		} else {
-			createSoldiers();
 
+		
+		this.towneco.update();
+		this.setnahstefeindlicheStadt();
+		this.townfaction.countTowns();
+		}
+	}
+
+	private void stadtKampf() {
+		
+
+//this.createSoldiers();
 			System.out.println(soldaten.size());
 			System.out.println(feindlicheSoldaten.size());
 
 			int kampfgroesse = feindlicheSoldaten.size() / 10;
-			if (kampfgroesse==0)kampfgroesse=1;
+			if (kampfgroesse == 0)
+				kampfgroesse = 1;
 
 			try {
 				if (this.townfaction.FactionID == this.factionlastattacked.FactionID) {
@@ -135,10 +133,8 @@ public class Town {
 			} catch (Exception e) {
 
 			}
-		}
+		
 
-		this.setnahstefeindlicheStadt();
-		this.townfaction.countTowns();
 	}
 
 	public Angriffsarmee createAngriffsArmee() throws Exception {
@@ -268,7 +264,7 @@ public class Town {
 			}
 
 			if (distance < mindistance && otherTowns.get(i).getTownfaction().FactionID != this.townfaction.FactionID) {
-				System.out.println(distance + "etwas ist näher dran!");
+				// System.out.println(distance + "etwas ist näher dran!");
 				minIndex = i;
 				mindistance = distance;
 			}
@@ -289,6 +285,21 @@ public class Town {
 		this.setnahstefeindlicheStadt();
 		this.getNearestTown();
 
+	}
+	public ArrayList<Soldat> getFeindlicheSoldaten() {
+		return feindlicheSoldaten;
+	}
+
+	public void setFeindlicheSoldaten(ArrayList<Soldat> feindlicheSoldaten) {
+		this.feindlicheSoldaten = feindlicheSoldaten;
+	}
+
+	public ArrayList<Soldat> getSoldaten() {
+		return soldaten;
+	}
+
+	public void setSoldaten(ArrayList<Soldat> soldaten) {
+		this.soldaten = soldaten;
 	}
 
 }

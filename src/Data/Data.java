@@ -63,10 +63,10 @@ public class Data {
 
 			if (keineStadtzunahe == false) {
 				i = -1;
-				System.out.println("keineStadtzunahe" + keineStadtzunahe);
+				//System.out.println("keineStadtzunahe" + keineStadtzunahe);
 			}
 		}
-		System.out.println("stadtnähe wurde erzeugt");
+		//System.out.println("stadtnähe wurde erzeugt");
 
 		for (int i = 0; i < anztown; i++) {
 			keineStadtzunahe = townlist.get(i).setnahstefeindlicheStadt();

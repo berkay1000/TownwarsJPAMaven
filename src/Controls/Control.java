@@ -27,6 +27,9 @@ public class Control implements ActionListener {
 			gui.changeView(gui.getMainmenu());
 		}
 		
+		String Townindex =e.getActionCommand();
+		int townindexnumber =Integer.parseInt(Townindex);
+		
 
 	}
 
