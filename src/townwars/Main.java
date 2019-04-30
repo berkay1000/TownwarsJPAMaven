@@ -14,16 +14,20 @@ public class Main {
 	public static void main(String[] args) {
 		
 
+		//erstelle Objekte die für MVC-Pattern benötigt werden
 		Control ctrl = new Control();
 		Data data = new Data();
 		GUI gui = new GUI();
 
+		//verbinde mvc
 		ctrl.setGUIDATA(gui, data);
 		data.setCTRLGUI(ctrl, gui);
 		gui.setDATACTRL(data, ctrl);
 
+		
+		//erstelle unterliegenden Jpanes wie Menü und groundview/schlachtfeld
 		gui.createViews();
-		gui.setpanetomain();
+		gui.setpanetomain();//zuerst kriegt mainmenü den fokus
 
 		gui.setContentPane(gui.getCurrentpane());
 		gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,7 +37,7 @@ public class Main {
 		int zaehler = 0;
 		
 		
-		while (true) {
+		while (true) { //true soll später zu pause werden
 			
 
 			try {
