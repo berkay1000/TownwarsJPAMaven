@@ -1,7 +1,5 @@
 package view;
 
-import java.awt.*;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -9,6 +7,10 @@ import Controls.Control;
 import Data.Data;
 
 public class GUI extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	Data data;
 	Control ctrl;
 	JPanel currentpane;

@@ -1,13 +1,15 @@
 package view;
 
 import java.awt.Graphics;
-import java.awt.GridLayout;
-
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class JPanelMainMenu extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	JButton buttonstart, buttonbeenden, buttonOptionen;
 	GUI gui;
 

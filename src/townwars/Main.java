@@ -1,12 +1,9 @@
 package townwars;
 
-import java.util.ArrayList;
-
 import javax.swing.JFrame;
 
 import Controls.Control;
 import Data.Data;
-import Data.ReadPropertyFile;
 import view.GUI;
 
 public class Main {

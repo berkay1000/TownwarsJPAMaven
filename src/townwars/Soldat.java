@@ -8,6 +8,7 @@ public class Soldat {
 	private Point position;
 	private int stance=1;//1 Patrolling,2 attacking
 	private int healthpoints;
+	@SuppressWarnings("unused")
 	private Town currenttown;
 	
 	

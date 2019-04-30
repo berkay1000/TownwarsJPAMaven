@@ -15,6 +15,10 @@ import townwars.Town;
 
 public class JPanelGroundView extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	ArrayList<Town> guiTown;
 	ArrayList<Soldat> guiSoldat;
 	ArrayList<Soldat> guiSoldatfeindlich;
