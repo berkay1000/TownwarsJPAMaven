@@ -18,6 +18,7 @@ public class Data {
 	ArrayList<Faction> FactionList;
 	ArrayList<Angriffsarmee> angriffsarmeelist;
 	public boolean hasStarted = false;
+	private int activeTownIndex;
 
 	public ArrayList<Angriffsarmee> getAngriffsarmeelist() {
 		return angriffsarmeelist;
@@ -53,16 +54,13 @@ public class Data {
 
 	public void createWorld() {
 
-		
-		if(angriffsarmeelist==null) {
-		angriffsarmeelist = new ArrayList<Angriffsarmee>();
-		townlist = new ArrayList<Town>();
-		FactionList = new ArrayList<Faction>();
+		if (angriffsarmeelist == null) {
+			angriffsarmeelist = new ArrayList<Angriffsarmee>();
+			townlist = new ArrayList<Town>();
+			FactionList = new ArrayList<Faction>();
 		}
-		
-		
-		
-		FactionList.add(new Faction(Color.GRAY, "neutral"));
+
+		FactionList.add(new Faction(Color.GRAY, "You"));
 		FactionList.add(new Faction(Color.YELLOW, "yellow walker"));
 		FactionList.add(new Faction(Color.RED, "red walker"));
 		FactionList.add(new Faction(Color.black, "black walker"));
@@ -109,12 +107,12 @@ public class Data {
 				FactionList.get(i).resetTownCount();
 			}
 
-			System.out.println("dataupdate!");
+//			System.out.println("dataupdate!");
 			for (int i = 0; i < townlist.size(); i++) {
 				townlist.get(i).update();
 
 				try {
-					angriffsarmeelist.add(townlist.get(i).createAngriffsArmee());
+					angriffsarmeelist.add(townlist.get(i).createAngriffsArmeeComputer());
 
 				} catch (Exception e) {
 
@@ -134,30 +132,38 @@ public class Data {
 
 			}
 		}
-		
-		for(int i=0; i<FactionList.size();i++) {
-		int facAnzTown=FactionList.get(i).getAmountTown();
-		int anzTown=Integer.parseInt(rpf.prop.getProperty("townamounts"));
-		
-		if(facAnzTown==anzTown) {
-			hasStarted=false;
-		}
+
+		for (int i = 0; i < FactionList.size(); i++) {
+			int facAnzTown = FactionList.get(i).getAmountTown();
+			int anzTown = Integer.parseInt(rpf.prop.getProperty("townamounts"));
+
+			if (facAnzTown == anzTown) {
+				hasStarted = false;
+			}
 		}
 	}
 
 	public void clearMap() {
-		while (angriffsarmeelist.isEmpty()==false) {
+		while (angriffsarmeelist.isEmpty() == false) {
 			angriffsarmeelist.remove(0);
 		}
-		while (townlist.isEmpty()==false) {
+		while (townlist.isEmpty() == false) {
 			townlist.remove(0);
 		}
-		while (FactionList.isEmpty()==false) {
+		while (FactionList.isEmpty() == false) {
 			FactionList.remove(0);
 		}
-		
 
 		createWorld();
+	}
+
+	public void setactiveTownIndex(int townindexnumber) {
+		activeTownIndex = townindexnumber;
+
+	}
+
+	public int getactiveTownIndex() {
+		return this.activeTownIndex;
 	}
 
 }

@@ -3,7 +3,7 @@ package townwars;
 public class Governor {
 
 	int baseattacksize = 20;
-	public int defensivness;
+	public int defensivness; //
 
 	public Governor() {
 		defensivness = (int) (Math.random() * 11)+5; // wert von 5-15 für wie defensiv sich die Ki Verhält

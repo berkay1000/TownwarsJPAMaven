@@ -8,6 +8,11 @@ public class Faction {
 	int FactionID = 0;
 	Color col;
 	int fac;
+	String factionname;
+
+	public String getFactionname() {
+		return factionname;
+	}
 
 	public Color getCol() {
 		return col;
@@ -17,7 +22,7 @@ public class Faction {
 		this.col = col;
 	}
 
-	String factionname;
+	
 	int amountTown = 0;
 
 	public int getAmountTown() {

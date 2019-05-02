@@ -6,11 +6,15 @@ public class Towneconomy {
 	int ressource;
 	int ressourceIncrease;
 	int zaehler;
+	int ressourceDerivedToBuildWall;
+	 Governor townGov;
+	
 
 	Towneconomy(Town inputtown) {
 		belongsToTown = inputtown;
 		ressource = 0;
 		zaehler = 0;
+		townGov=belongsToTown.governor;
 
 	}
 
@@ -19,14 +23,20 @@ public class Towneconomy {
 			createSoldiers();
 		}
 		ressource = ressource + 5;
-		// System.out.println("ressourcenstand ist: "+ressource);
-
-//		zaehler++;
-//
-//		if (zaehler > 100) {
-//			ressourceIncrease++;
-//			zaehler = 0;
-//		}
+		
+		int randomnumb= (int) (Math.random() * (101));
+		
+		if(randomnumb < (townGov.defensivness-5)) {
+			ressource-=5;
+			ressourceDerivedToBuildWall+=5;
+		}
+		if(ressourceDerivedToBuildWall>500) {
+			
+			belongsToTown.hasWall=true;
+			ressourceDerivedToBuildWall=0;
+			belongsToTown.fortificationBonus+=15;
+		}
+		
 
 	}
 

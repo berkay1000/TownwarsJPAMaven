@@ -60,7 +60,7 @@ public class Angriffsarmee {
 
 	public void movetowardstarget() {
 
-		//bewege zum Ziel
+		// bewege zum Ziel
 		int ownpositionx = angriffsarmeeposition.x;
 		int ownpositiony = angriffsarmeeposition.y;
 		int theirpositionx = targetTown.getStadtposition().x;
@@ -80,19 +80,19 @@ public class Angriffsarmee {
 		}
 
 		// checkt ob armee bereits in der nähe vom zielstadt ist
-		if (deltax < 10 && deltay < 10&&deltax >-10&& deltay >-10) { // noch checken ob zielstadt verbündet 
+		if (deltax < 10 && deltay < 10 && deltax > -10 && deltay > -10) { // noch checken ob zielstadt verbündet
 			for (int x = 0; x < 3; x++) {
-				if (soldaten.isEmpty()==false&&this.armyfaction!=targetTown.townfaction) {
+				if (soldaten.isEmpty() == false && this.armyfaction != targetTown.townfaction) {
 					this.soldaten.remove(0);
 					targetTown.getFeindlicheSoldaten().add(new Soldat(targetTown.stadtposition));
 					targetTown.setFactionlastattacked(armyfaction);
-				}
-				else if(soldaten.isEmpty()==false) { 
+				} else if (soldaten.isEmpty() == false) {
 					this.soldaten.remove(0);
 					targetTown.soldaten.add(new Soldat(targetTown.stadtposition));
 				}
 			}
-			// ändere stadtfraktion und einheiten werden übertragen falls keine verteidiger mehr da
+			// ändere stadtfraktion und einheiten werden übertragen falls keine verteidiger
+			// mehr da
 //			if (targetTown.getSoldaten().size() < 2) {
 //				targetTown.setTownfaction(armyfaction);
 //				

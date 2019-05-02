@@ -25,6 +25,8 @@ public class JPanelGroundView extends JPanel {
 	ArrayList<Faction> guiFaction;
 	GUI gui;
 	JButton exit;
+	JButton pause;
+	JButton attack;
 	ArrayList<JButton> townbutton;
 	ArrayList<Angriffsarmee> guiangriffsarmee;
 
@@ -39,9 +41,22 @@ public class JPanelGroundView extends JPanel {
 		exit.setBounds(10, 10, 100, 50);
 		exit.setVisible(true);
 		exit.setActionCommand("exit");
-
+		pause = new JButton("pause");
+		pause.setBounds(120, 10, 100, 50);
+		pause.setVisible(true);
+		pause.setActionCommand("pause");
+		
+		attack = new JButton("attack");
+		attack.setBounds(1080, 200, 100, 50);
+		attack.setVisible(true);
+		attack.setActionCommand("attack");
+		
+		attack.addActionListener(gui.ctrl);
 		exit.addActionListener(gui.ctrl);
+		pause.addActionListener(gui.ctrl);
 		this.add(exit);
+		this.add(pause);
+		this.add(attack);
 
 		guiTown = gui.data.getTownlist();
 		guiFaction = gui.data.getFactionList();
@@ -58,6 +73,7 @@ public class JPanelGroundView extends JPanel {
 			townbutton.get(i).setContentAreaFilled(false);
 			townbutton.get(i).setBorderPainted(false);
 			townbutton.get(i).addActionListener(gui.ctrl);
+			townbutton.get(i).setActionCommand("" + i);
 			this.add(townbutton.get(i));
 		}
 		// System.out.println("fertig mit stadtknopf");
@@ -67,13 +83,18 @@ public class JPanelGroundView extends JPanel {
 	public void paint(Graphics g) {
 
 		// ArrayList<Soldat> guiSoldat ;
-
-		
+		int activeTownIndex = gui.data.getactiveTownIndex();
+		Town activeTown = this.getGuiTown().get(activeTownIndex);
 		super.paint(g);
 		for (int i = 0; i < guiFaction.size(); i++) {
 			g.drawString("" + this.guiFaction.get(i).getAmountTown(), 1200, 400 + i * 15);
 		}
-//show frames 
+		// show active Town stats
+		g.drawString("Fraktion: " + activeTown.getTownfaction().getFactionname(), 1080, 150);
+		g.drawString("active Soldaten" + activeTown.getSoldaten().size(), 1080, 170);
+		g.drawString("feindliche Soldaten" + activeTown.getFeindlicheSoldaten().size(), 1080, 190);
+
+		//show frames 
 		g.fillRect(0, 80, 1500, 10);
 		g.fillRect(0, 800, 1500, 10);
 		g.fillRect(1050, 0, 10, 1500);
@@ -93,12 +114,24 @@ public class JPanelGroundView extends JPanel {
 		}
 		// System.out.println("paint von groundview wurde ausgelöst");
 
+		//Draw städte
 		for (int i = 0; i < guiTown.size(); i++) {
 
 			g.setColor(guiTown.get(i).getTownfaction().getCol());
 			int tx = guiTown.get(i).getStadtposition().x;
 			int ty = guiTown.get(i).getStadtposition().y;
 			g.fillOval(tx, ty, 30, 30);
+			if(i==activeTownIndex) {
+				g.setColor(Color.green);
+				g.fillOval(tx, ty, 30, 30);
+			}
+
+			if (guiTown.get(i).hasWall == true) {
+				g.setColor(Color.black);
+				g.drawOval(tx - 1, ty - 1, 32, 32);
+				
+				
+			}
 
 		}
 
@@ -147,7 +180,7 @@ public class JPanelGroundView extends JPanel {
 		}
 		// draw Angriffsarmeen
 		for (int i = 0; i < guiangriffsarmee.size(); i++) {
-			System.out.println("position der angriffsarmee" + guiangriffsarmee.get(i).getPosition().x);
+//			System.out.println("position der angriffsarmee" + guiangriffsarmee.get(i).getPosition().x);
 			g.setColor(guiangriffsarmee.get(i).getCol());
 			int tx = guiangriffsarmee.get(i).getPosition().x;
 			int ty = guiangriffsarmee.get(i).getPosition().y;
