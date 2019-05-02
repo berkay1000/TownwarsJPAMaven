@@ -6,7 +6,7 @@ public class Governor {
 	public int defensivness;
 
 	public Governor() {
-		defensivness = (int) (Math.random() * 11); // wert von 1-10 für wie defensiv sich die Ki Verhält
+		defensivness = (int) (Math.random() * 11)+5; // wert von 5-15 für wie defensiv sich die Ki Verhält
 		// hohe Werte lassen viel mehr Truppen zuhause
 
 	}

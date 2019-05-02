@@ -33,9 +33,35 @@ public class Data {
 
 	public Data() {
 
+		createWorld();
+
+	}
+
+	public ArrayList<Faction> getFactionList() {
+		return FactionList;
+	}
+
+	public void setCTRLGUI(Control c, GUI g) {
+		ctrl = c;
+		gui = g;
+
+	}
+
+	public void updateSoldierPosition() {
+
+	}
+
+	public void createWorld() {
+
+		
+		if(angriffsarmeelist==null) {
 		angriffsarmeelist = new ArrayList<Angriffsarmee>();
 		townlist = new ArrayList<Town>();
 		FactionList = new ArrayList<Faction>();
+		}
+		
+		
+		
 		FactionList.add(new Faction(Color.GRAY, "neutral"));
 		FactionList.add(new Faction(Color.YELLOW, "yellow walker"));
 		FactionList.add(new Faction(Color.RED, "red walker"));
@@ -63,32 +89,14 @@ public class Data {
 
 			if (keineStadtzunahe == false) {
 				i = -1;
-				//System.out.println("keineStadtzunahe" + keineStadtzunahe);
+				// System.out.println("keineStadtzunahe" + keineStadtzunahe);
 			}
 		}
-		//System.out.println("stadtnähe wurde erzeugt");
+		// System.out.println("stadtnähe wurde erzeugt");
 
 		for (int i = 0; i < anztown; i++) {
 			keineStadtzunahe = townlist.get(i).setnahstefeindlicheStadt();
 		}
-
-	}
-
-	public ArrayList<Faction> getFactionList() {
-		return FactionList;
-	}
-
-	public void setCTRLGUI(Control c, GUI g) {
-		ctrl = c;
-		gui = g;
-
-	}
-
-	public void updateSoldierPosition() {
-
-	}
-
-	public void createWorld() {
 
 	}
 
@@ -117,6 +125,7 @@ public class Data {
 				angriffsarmeelist.get(i).update();
 			}
 			for (int i = 0; i < angriffsarmeelist.size();) {
+
 				if (angriffsarmeelist.get(i).getSoldaten().size() == 0) {
 					angriffsarmeelist.remove(i);
 				} else {
@@ -125,7 +134,30 @@ public class Data {
 
 			}
 		}
+		
+		for(int i=0; i<FactionList.size();i++) {
+		int facAnzTown=FactionList.get(i).getAmountTown();
+		int anzTown=Integer.parseInt(rpf.prop.getProperty("townamounts"));
+		
+		if(facAnzTown==anzTown) {
+			hasStarted=false;
+		}
+		}
+	}
 
+	public void clearMap() {
+		while (angriffsarmeelist.isEmpty()==false) {
+			angriffsarmeelist.remove(0);
+		}
+		while (townlist.isEmpty()==false) {
+			townlist.remove(0);
+		}
+		while (FactionList.isEmpty()==false) {
+			FactionList.remove(0);
+		}
+		
+
+		createWorld();
 	}
 
 }

@@ -30,11 +30,9 @@ public class JPanelGroundView extends JPanel {
 
 	public JPanelGroundView(GUI inputgui) {
 		townbutton = new ArrayList<JButton>();
-		guiangriffsarmee= new ArrayList<Angriffsarmee>();
-		guiSoldatfeindlich= new ArrayList<Soldat>();
-		
-		
-		
+		guiangriffsarmee = new ArrayList<Angriffsarmee>();
+		guiSoldatfeindlich = new ArrayList<Soldat>();
+
 		gui = inputgui;
 		this.setLayout(null);
 		exit = new JButton("exit");
@@ -46,8 +44,8 @@ public class JPanelGroundView extends JPanel {
 		this.add(exit);
 
 		guiTown = gui.data.getTownlist();
-		guiFaction= gui.data.getFactionList();
-		guiangriffsarmee= gui.data.getAngriffsarmeelist();
+		guiFaction = gui.data.getFactionList();
+		guiangriffsarmee = gui.data.getAngriffsarmeelist();
 		for (int i = 0; i < guiTown.size(); i++) {
 			// System.out.println("stadtknopf wird erstellt");
 
@@ -70,19 +68,33 @@ public class JPanelGroundView extends JPanel {
 
 		// ArrayList<Soldat> guiSoldat ;
 
+		
 		super.paint(g);
-		for(int i=0; i < guiFaction.size();i++) {
-		g.drawString(""+this.guiFaction.get(i).getAmountTown(), 1200, 400+i*15);
+		for (int i = 0; i < guiFaction.size(); i++) {
+			g.drawString("" + this.guiFaction.get(i).getAmountTown(), 1200, 400 + i * 15);
 		}
 //show frames 
 		g.fillRect(0, 80, 1500, 10);
 		g.fillRect(0, 800, 1500, 10);
 		g.fillRect(1050, 0, 10, 1500);
 
+		// draw unteren Balken
+
+		int anzTown = 0;
+		int offset = 0;
+		for (int i = 0; i < guiFaction.size(); i++) {
+
+			anzTown = guiFaction.get(i).getAmountTown();
+			Color faccol = guiFaction.get(i).getCol();
+
+			g.setColor(faccol);
+			g.fillRect(10 + offset, 820, anzTown * 4, 30);
+			offset += anzTown * 4;
+		}
 		// System.out.println("paint von groundview wurde ausgelöst");
 
 		for (int i = 0; i < guiTown.size(); i++) {
-			
+
 			g.setColor(guiTown.get(i).getTownfaction().getCol());
 			int tx = guiTown.get(i).getStadtposition().x;
 			int ty = guiTown.get(i).getStadtposition().y;
@@ -91,63 +103,56 @@ public class JPanelGroundView extends JPanel {
 		}
 
 		// draw nearest line
-		g.setFont(new Font("TimesRoman", Font.PLAIN, 10)); 
+		g.setFont(new Font("TimesRoman", Font.PLAIN, 10));
 		for (int i = 0; i < guiTown.size(); i++) {
-			
+
 			g.drawLine(guiTown.get(i).getStadtposition().x + 15, guiTown.get(i).getStadtposition().y + 15,
 					guiTown.get(i).getNahsteStadt().getStadtposition().x + 15,
 					guiTown.get(i).getNahsteStadt().getStadtposition().y + 15);
 
 		}
 		// Draw nearest enemy line
-		
+
 		for (int i = 0; i < guiTown.size(); i++) {
 			try {
-			g.setColor(Color.red);
-			g.drawLine(guiTown.get(i).getStadtposition().x + 15, guiTown.get(i).getStadtposition().y + 15,
-					guiTown.get(i).getNahstefeindlicheStadt().getStadtposition().x + 15,
-					guiTown.get(i).getNahstefeindlicheStadt().getStadtposition().y + 15);
+				g.setColor(Color.red);
+				g.drawLine(guiTown.get(i).getStadtposition().x + 15, guiTown.get(i).getStadtposition().y + 15,
+						guiTown.get(i).getNahstefeindlicheStadt().getStadtposition().x + 15,
+						guiTown.get(i).getNahstefeindlicheStadt().getStadtposition().y + 15);
 
 			}
-		
-		catch(Exception e) {
-			guiTown.get(i).setnahstefeindlicheStadt();
+
+			catch (Exception e) {
+				guiTown.get(i).setnahstefeindlicheStadt();
+			}
+
 		}
-			
-		}
-		//draw soldier count 
+		// draw soldier count
 		g.setColor(Color.black);
 		for (int i = 0; i < guiTown.size(); i++) {
-		int guiAnzsoldaten =guiTown.get(i).getSoldaten().size();
-		int stadtposX=guiTown.get(i).getStadtposition().x;
-		int stadtposY=guiTown.get(i).getStadtposition().y;
-		g.drawString(""+guiAnzsoldaten, stadtposX	, stadtposY);
+			int guiAnzsoldaten = guiTown.get(i).getSoldaten().size();
+			int stadtposX = guiTown.get(i).getStadtposition().x;
+			int stadtposY = guiTown.get(i).getStadtposition().y;
+			g.drawString("" + guiAnzsoldaten, stadtposX, stadtposY);
 		}
-		
-		//soldier count but enemy
+
+		// soldier count but enemy
 		g.setColor(Color.red);
 		for (int i = 0; i < guiTown.size(); i++) {
-		int guiAnzsoldatenfeindlich =guiTown.get(i).getFeindlicheSoldaten().size();
-		int stadtposX=guiTown.get(i).getStadtposition().x+30;
-		int stadtposY=guiTown.get(i).getStadtposition().y;
-		g.drawString(""+guiAnzsoldatenfeindlich, stadtposX	, stadtposY);
-		
+			int guiAnzsoldatenfeindlich = guiTown.get(i).getFeindlicheSoldaten().size();
+			int stadtposX = guiTown.get(i).getStadtposition().x + 30;
+			int stadtposY = guiTown.get(i).getStadtposition().y;
+			g.drawString("" + guiAnzsoldatenfeindlich, stadtposX, stadtposY);
+
 		}
-		//draw Angriffsarmeen
+		// draw Angriffsarmeen
 		for (int i = 0; i < guiangriffsarmee.size(); i++) {
-			System.out.println("position der angriffsarmee"+guiangriffsarmee.get(i).getPosition().x);
+			System.out.println("position der angriffsarmee" + guiangriffsarmee.get(i).getPosition().x);
 			g.setColor(guiangriffsarmee.get(i).getCol());
 			int tx = guiangriffsarmee.get(i).getPosition().x;
 			int ty = guiangriffsarmee.get(i).getPosition().y;
-			g.fillRect(tx, ty, 5,5);
+			g.fillRect(tx, ty, 5, 5);
 		}
-		
-		//draw unteren Balken
-		
-		
-		
-		
-	
 
 	}
 
@@ -157,7 +162,7 @@ public class JPanelGroundView extends JPanel {
 
 	public void setGuiTown(ArrayList<Town> guiTown) {
 		this.guiTown = guiTown;
-		guiFaction= gui.data.getFactionList();
+		guiFaction = gui.data.getFactionList();
 	}
 
 	public ArrayList<Soldat> getGuiSoldat() {
@@ -167,6 +172,7 @@ public class JPanelGroundView extends JPanel {
 	public void setGuiSoldat(ArrayList<Soldat> guiSoldat) {
 		this.guiSoldat = guiSoldat;
 	}
+
 	public void setAngriffsarmeen(ArrayList<Angriffsarmee> guiArmeen) {
 		this.guiangriffsarmee = guiArmeen;
 	}

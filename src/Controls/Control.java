@@ -18,17 +18,20 @@ public class Control implements ActionListener {
 		System.out.println(""+e.getActionCommand());
 
 		if (e.getActionCommand().equals("start")) {
-			System.out.println("wechsle sicht");
+			System.out.println("wechsle sicht von main zu ground");
 			gui.changeView(gui.getGroundView());
 			data.hasStarted=true;
 		}
-		if (e.getActionCommand().equals("exit")) {
+		else if (e.getActionCommand().equals("exit")) {
 			System.out.println("wechsle sicht von ground zu main");
+			data.hasStarted=false;
 			gui.changeView(gui.getMainmenu());
+			data.clearMap();
 		}
-		
+		else {
 		String Townindex =e.getActionCommand();
 		int townindexnumber =Integer.parseInt(Townindex);
+		}
 		
 
 	}

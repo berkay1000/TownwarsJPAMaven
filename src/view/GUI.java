@@ -62,6 +62,10 @@ public class GUI extends JFrame {
 		this.setVisible(true);
 
 	}
+	public void creategroundView() {
+		
+		
+	}
 
 	public void createViews() {
 		mainmenu = new JPanelMainMenu(this);

@@ -23,6 +23,9 @@ public class Town {
 	int defensiveAdvantage = 0;
 	int targetedby = 0;
 	Towneconomy towneco;
+	boolean stadtImKampf;
+	
+	int zyklus =0; //zyklus damit manche Aktionen nicht zu häufig ausgeführt werden 0 - 60
 
 	public Faction getFactionlastattacked() {
 		return factionlastattacked;
@@ -77,9 +80,13 @@ public class Town {
 	}
 
 	public void update() {
-
+System.out.println("stadtupdate!");
 	
+		if(zyklus%2==1) {
+		this.stadtImKampf=false;
 		this.stadtKampf();
+		}
+		
 		if (soldaten.isEmpty() && this.feindlicheSoldaten.size() > 0) {
 			stadtWurdeErobert();
 		} else {
@@ -89,6 +96,10 @@ public class Town {
 		this.setnahstefeindlicheStadt();
 		this.townfaction.countTowns();
 		}
+		
+		
+		zyklus++;
+		if(zyklus>=60)zyklus=0;
 	}
 
 	private void stadtKampf() {
@@ -98,7 +109,7 @@ public class Town {
 			System.out.println(soldaten.size());
 			System.out.println(feindlicheSoldaten.size());
 
-			int kampfgroesse = feindlicheSoldaten.size() / 10;
+			int kampfgroesse = feindlicheSoldaten.size() / 30;
 			if (kampfgroesse == 0)
 				kampfgroesse = 1;
 
@@ -117,10 +128,11 @@ public class Town {
 				else {
 					for (int i = 0; i < kampfgroesse; i++) {
 						if (feindlicheSoldaten.size() > 0 && soldaten.size() > 0) {
+							this.stadtImKampf=true;
 							feindlicheSoldaten.remove(0);
 							soldaten.remove(0);
 
-							defensiveAdvantage += 100;
+							defensiveAdvantage += 25;
 
 							if (defensiveAdvantage >= 100) {
 								feindlicheSoldaten.remove(0);
