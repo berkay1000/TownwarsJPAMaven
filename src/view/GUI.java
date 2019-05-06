@@ -17,6 +17,7 @@ public class GUI extends JFrame {
 
 	JPanelMainMenu mainmenu;
 	JPanelGroundView groundView;
+	JPanelOptionMenu optionmenupane;
 
 	public JPanelGroundView getGroundView() {
 		return groundView;
@@ -70,10 +71,17 @@ public class GUI extends JFrame {
 	public void createViews() {
 		mainmenu = new JPanelMainMenu(this);
 		groundView = new JPanelGroundView(this);
+		optionmenupane= new JPanelOptionMenu(this);
+		
 	}
 
 	public JPanel getCurrentpane() {
 		return currentpane;
+	}
+
+	public JPanelOptionMenu getOptionMenu() {
+		// TODO Auto-generated method stub
+		return optionmenupane;
 	}
 
 }

@@ -10,19 +10,20 @@ public class Town {
 	ArrayList<Soldat> soldaten = new ArrayList<Soldat>();
 	ArrayList<Soldat> feindlicheSoldaten = new ArrayList<Soldat>();
 
-	Buildings[] buildings;
-	Governor governor;
-	Point stadtposition;
 	ArrayList<Town> otherTowns;
 	Town nahsteStadt;
 	Town nahstefeindlicheStadt;
+	Buildings[] buildings;
+	Governor governor;
+	Point stadtposition;
+	Towneconomy towneco;
 	Faction townfaction;
 	Faction factionlastattacked;
 	int defensiveAdvantage = 0;
 	int targetedby = 0;
-	Towneconomy towneco;
-	boolean stadtImKampf;
 	int fortificationBonus;
+
+	boolean stadtImKampf;
 	public boolean hasWall;
 	boolean isPlayer;
 
@@ -153,7 +154,7 @@ public class Town {
 
 	public Angriffsarmee createAngriffsArmeeComputer() throws Exception {
 
-		if (soldaten.size() > governor.getBaseattacksize()&&this.isPlayer==false) {
+		if (soldaten.size() > governor.getBaseattacksize() && this.isPlayer == false) {
 			Angriffsarmee aa = new Angriffsarmee(stadtposition, townfaction, nahstefeindlicheStadt);
 
 			int createArmyOffset = governor.defensivness * 10;
@@ -172,18 +173,17 @@ public class Town {
 		// Mit einschränkungen später
 
 	}
+
 	public Angriffsarmee createAngriffsArmee() throws Exception {
 
-		if (soldaten.size() > governor.getBaseattacksize()&&this.isPlayer==true) {
+		if (soldaten.size() > governor.getBaseattacksize() && this.isPlayer == true) {
 			Angriffsarmee aa = new Angriffsarmee(stadtposition, townfaction, nahstefeindlicheStadt);
 
-			
 			for (int i = 0; i < governor.getBaseattacksize(); i++) {
 				soldaten.remove(0);
 				aa.addToArmy();
 
 			}
-			
 
 			return aa;
 		} else {

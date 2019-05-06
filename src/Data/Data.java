@@ -19,6 +19,8 @@ public class Data {
 	ArrayList<Angriffsarmee> angriffsarmeelist;
 	public boolean hasStarted = false;
 	private int activeTownIndex;
+	
+	
 
 	public ArrayList<Angriffsarmee> getAngriffsarmeelist() {
 		return angriffsarmeelist;

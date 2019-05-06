@@ -26,24 +26,36 @@ public class Control implements ActionListener, MouseListener {
 			data.hasStarted = false;
 			gui.changeView(gui.getMainmenu());
 			data.clearMap();
+		} else if (e.getActionCommand().equals("save")) {
+			System.out.println("wechsle sicht von optionen zu mainmenu");
+
+			gui.changeView(gui.getMainmenu());
+
+			gui.getOptionMenu().save();
+			data.clearMap();
+
+		} else if (e.getActionCommand().equals("optionen")) {
+			gui.changeView(gui.getOptionMenu());
+			data.clearMap();
+
 		}
 
 		else if (e.getActionCommand().equals("pause")) {
-			
-			if(data.hasStarted == false) data.hasStarted = true;
-			
-			else if(data.hasStarted == true) data.hasStarted = false;
-		
-		}
-		else if(e.getActionCommand().equals("attack")) {
+
+			if (data.hasStarted == false)
+				data.hasStarted = true;
+
+			else if (data.hasStarted == true)
+				data.hasStarted = false;
+
+		} else if (e.getActionCommand().equals("attack")) {
 			System.out.println("angriff!");
 		}
-		
 
 		else {
 			String Townindex = e.getActionCommand();
 			int townindexnumber = Integer.parseInt(Townindex);
-			System.out.println("setze "+townindexnumber+"auf activeTown");
+			System.out.println("setze " + townindexnumber + "auf activeTown");
 			data.setactiveTownIndex(townindexnumber);
 		}
 
@@ -63,31 +75,30 @@ public class Control implements ActionListener, MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		
-		
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
