@@ -3,7 +3,11 @@ package Data;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
 import java.util.Properties;
 
 public class ReadPropertyFile {
@@ -19,7 +23,6 @@ public class ReadPropertyFile {
 
 			prop.load(ip);
 
-			// TODO Auto-generated catch block
 			ip.close();
 
 		} catch (FileNotFoundException e) {
@@ -33,16 +36,20 @@ public class ReadPropertyFile {
 	}
 
 	public void storePropertyFile() {
-		
+
 		prop = new Properties();
-
 		try {
-			FileOutputStream out = new FileOutputStream("src\\Data\\config.properties");
+			FileInputStream ip = new FileInputStream("src\\Data\\config.properties");
+			String[] propArray= new String[250];
 
-			prop.store(out, "test=test");
+			prop.load(ip);
 
-			// TODO Auto-generated catch block
-			out.close();
+			ip.close();
+			for(int i=0; i<propArray.length;i++) {
+			 propArray[0]= prop.getProperty("asdf");
+			
+			}
+			
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
